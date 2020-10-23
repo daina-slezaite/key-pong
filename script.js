@@ -44,7 +44,7 @@ document.addEventListener('keydown', e => {
 
 class Ball {
     constructor() {
-        this.x = 400;
+        this.x = 300;
         this.y = 300;
         this.radius = 7;
         this.xDirection = 3;
@@ -106,7 +106,12 @@ function startGame() {
     showScore();
     ball.draw();
     bar.draw();
-}
+    startCoinGenerator();
+    coinsArr.forEach(coin => {
+        coin.draw();
+        coin.move();
+    })
+};
 
 
 // Ball + bar collision detection
@@ -158,7 +163,6 @@ startButton.addEventListener('click', event => {
     }, 1000);
 })
 
-
 function gameOver() {
     canvas.remove();
     let gameOverParent = document.createElement('div');
@@ -171,3 +175,69 @@ function gameOver() {
     gameOverParent.appendChild(h1Tag);
     gameOverParent.appendChild(button);
 }
+
+/*
+4 different types of elements:
+1. One that makes the bar longer
+2. One that makes the bar shorter
+3. One that increases the ball speed
+4. One that adds 1 life, so you don't die immediately when ball falls
+*/ 
+
+let coin1img = new Image();
+coin1img.src = "./images/Element1.png"
+
+let coin2img = new Image();
+coin2img.src = "./images/Element2.png"
+
+let coin3img = new Image();
+coin3img.src = "./images/Element3.png"
+
+let coin4img = new Image();
+coin4img.src = "./images/Element4.png"
+
+let images = [coin1img, coin2img, coin3img, coin4img];
+let coinsArr = [];
+
+class Coin {
+    constructor() {
+        this.width = 30;
+        this.height = 30;
+        this.x = this.randomX();
+        this.y = 200;
+        this.dy = 5;
+        // image.addEventListener('load', () => {
+        //     this.image = images[Math.floor(Math.random()*images.length)];
+        //     this.draw();
+        // });
+        this.image = this.randomImage();
+        this.draw;
+    }
+    randomX() {
+        return Math.floor(Math.random() * (canvas.width - 50));
+    }
+    randomImage() {
+        return images[Math.floor(Math.random()*images.length)];
+    }
+    draw() {
+        ctx.drawImage(this.image, this.x, this.y);
+        this.move();
+    }
+    move() {
+        this.y += this.dy;
+        this.draw();
+    }
+}
+
+// let coinGenerator;
+function startCoinGenerator() {
+    setInterval(() => {
+        coinsArr.push(new Coin());
+    }, 2000);
+};
+
+// function stopCoinGenerator() {
+//     clearInterval(coinGenerator);
+// };
+
+
