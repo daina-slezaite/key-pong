@@ -7,7 +7,7 @@ class Bar {
         this.x = 450;
         this.y = 480;
         this.width = 100;
-        this.height = 15;
+        this.height = 20;
         this.draw();
     }
     draw() {
@@ -26,7 +26,6 @@ class Bar {
             this.x -= 20;
         }
     }
-    
 }
 
 let bar;
@@ -94,8 +93,6 @@ class Ball {
 let ball;
 
 
-
-
 // Function that updates the canvas and repaints both the ball and the bar every 10 miliseconds
 function updateCanvas() {
     ball.draw();
@@ -105,7 +102,6 @@ function updateCanvas() {
         coin.draw();
         coin.move();
     })
-    
     showScore();
     requestAnimationFrame(updateCanvas);
 }
@@ -181,27 +177,19 @@ function gameOver() {
     gameOverParent.appendChild(button);
 }
 
-/*
-4 different types of elements:
-1. One that makes the bar longer
-2. One that makes the bar shorter
-3. One that increases the ball speed
-4. One that adds 1 life, so you don't die immediately when ball falls
-*/ 
+let coin1 = new Image();
+coin1.src = "./images/Element1.png"
 
-let coin1img = new Image();
-coin1img.src = "./images/Element1.png"
+let coin2 = new Image();
+coin2.src = "./images/Element2.png"
 
-let coin2img = new Image();
-coin2img.src = "./images/Element2.png"
+let coin3 = new Image();
+coin3.src = "./images/Element3.png"
 
-let coin3img = new Image();
-coin3img.src = "./images/Element3.png"
+let coin4 = new Image();
+coin4.src = "./images/Element4.png"
 
-let coin4img = new Image();
-coin4img.src = "./images/Element4.png"
-
-let images = [coin1img, coin2img, coin3img, coin4img];
+let templateCoins = [coin1, coin2, coin3, coin4];
 let coinsArr = [];
 
 class Coin {
@@ -211,24 +199,55 @@ class Coin {
         this.x = this.randomX();
         this.y = 0;
         this.dy = 2;
-        // image.addEventListener('load', () => {
-        //     this.image = images[Math.floor(Math.random()*images.length)];
-        //     this.draw();
-        // });
-        this.image = this.randomImage();
+        this.image = this.randomCoin();
         this.draw();
     }
     randomX() {
         return Math.floor(Math.random() * (canvas.width - 50));
     }
-    randomImage() {
-        return images[Math.floor(Math.random()*images.length)];
+    randomCoin() {
+        return templateCoins[Math.floor(Math.random()*templateCoins.length)];
     }
     draw() {
         ctx.drawImage(this.image, this.x, this.y);
     }
     move() {
         this.y += this.dy;
+        if(getDistance(this.x, this.y) < this.width) {
+            this.takeEffect();
+        }
+    }
+    takeEffect() {
+        switch(this.image) {
+            case coin1:
+                console.log("coin1");
+                bar.width = 150; 
+                setTimeout(() => {
+                    bar.width = 100;
+                }, 4000);
+                break;
+            case coin2:
+                console.log("coin2");
+                bar.width = 50; //decreases bar width by 0.5
+                setTimeout(() => {
+                    bar.width = 100;
+                }, 4000);
+                break;
+            case coin3:
+                console.log("coin3");
+                ball.radius = 3.5;
+                setTimeout(() => {
+                    ball.radius = 7;
+                }, 4000);
+                break;
+            case coin4:
+                console.log("coin4");
+                ball.radius = 10;
+                setTimeout(() => {
+                    ball.radius = 7;
+                }, 4000);
+                break;
+        }
     }
 }
 
@@ -236,11 +255,11 @@ let coinGenerator;
 function startCoinGenerator() {
     coinGenerator = setInterval(() => {
         coinsArr.push(new Coin());
-    }, 2000);
+    }, 5000);
 };
 
-// function stopCoinGenerator() {
-//     clearInterval(coinGenerator);
-// };
+function stopCoinGenerator() {
+    clearInterval(coinGenerator);
+};
 
 
