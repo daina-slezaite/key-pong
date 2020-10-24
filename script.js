@@ -94,23 +94,28 @@ class Ball {
 let ball;
 
 
+
+
 // Function that updates the canvas and repaints both the ball and the bar every 10 miliseconds
-function moveObjects() {
+function updateCanvas() {
+    ball.draw();
     ball.move();
     bar.draw();
+    coinsArr.forEach(coin => {
+        coin.draw();
+        coin.move();
+    })
+    
     showScore();
-    requestAnimationFrame(moveObjects);
+    requestAnimationFrame(updateCanvas);
 }
+
 
 function startGame() {
     showScore();
     ball.draw();
     bar.draw();
     startCoinGenerator();
-    coinsArr.forEach(coin => {
-        coin.draw();
-        coin.move();
-    })
 };
 
 
@@ -142,12 +147,12 @@ function showScore() {
 function swapInstructionsToCanvas() {
     let instructions = document.getElementById('opening-screen');
     instructions.remove();
-    // canvas = document.createElement("canvas"); iskeliau i virsu
+    // canvas = document.createElement("canvas"); pushed up
     canvas.id = "canvas"
     canvas.width = 700;
     canvas.height = 500;
     ctx = canvas.getContext('2d');
-    // let body = document.querySelector('body'); iskeliau i virsu
+    // let body = document.querySelector('body'); pushed up
     body.appendChild(canvas);
 }
 
@@ -159,7 +164,7 @@ startButton.addEventListener('click', event => {
     bar = new Bar();
     startGame();
     setTimeout(() => {
-        moveObjects();
+        updateCanvas();
     }, 1000);
 })
 
@@ -204,14 +209,14 @@ class Coin {
         this.width = 30;
         this.height = 30;
         this.x = this.randomX();
-        this.y = 200;
-        this.dy = 5;
+        this.y = 0;
+        this.dy = 2;
         // image.addEventListener('load', () => {
         //     this.image = images[Math.floor(Math.random()*images.length)];
         //     this.draw();
         // });
         this.image = this.randomImage();
-        this.draw;
+        this.draw();
     }
     randomX() {
         return Math.floor(Math.random() * (canvas.width - 50));
@@ -221,17 +226,15 @@ class Coin {
     }
     draw() {
         ctx.drawImage(this.image, this.x, this.y);
-        this.move();
     }
     move() {
         this.y += this.dy;
-        this.draw();
     }
 }
 
-// let coinGenerator;
+let coinGenerator;
 function startCoinGenerator() {
-    setInterval(() => {
+    coinGenerator = setInterval(() => {
         coinsArr.push(new Coin());
     }, 2000);
 };
