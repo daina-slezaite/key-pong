@@ -26,13 +26,16 @@ class Bar {
 
 class Ball {
     constructor() {
-        this.x = 300;
-        this.y = 300;
+        this.x = this.getRandomStartingPoint(50, canvas.width);
+        this.y = this.getRandomStartingPoint(50, 400);
         this.radius = 7;
         this.xDirection = 3;
         this.yDirection = 3;
         this.score = 0;
         this.draw();
+    }
+    getRandomStartingPoint(min, max) {
+        return Math.random() * (max - min) + min;
     }
     draw() {
         game.ctx.beginPath();
@@ -49,7 +52,7 @@ class Ball {
         if(this.x + this.xDirection > canvas.width - this.radius || this.x + this.xDirection < this.radius) {
             this.xDirection = this.xDirection/-1;
         }
-        if (game.getDistance(this.x, this.y) < (Math.pow(this.radius, 2))) {
+        if (game.getDistance(this.x, this.y) < (this.radius*2)) {
             this.yDirection = this.yDirection/-1;
             this.score++;
         }
@@ -58,9 +61,10 @@ class Ball {
         }
         if(this.y + this.yDirection > canvas.height) {
             this.stop();
+            game.stopCoinGenerator();
             setTimeout(() => {
                 game.gameOver();
-            }, 400);
+            }, 300);
         }
     }
     stop() {
@@ -93,8 +97,8 @@ class Game {
     }
     showScore() {
         this.ctx.fillStyle = 'black';
-        this.ctx.font = '32px Arial';
-        this.ctx.fillText(`Score: ${ball.score}`, 20, 40);
+        this.ctx.font = '20px Arial';
+        this.ctx.fillText(`Score: ${ball.score}`, 15, 30);
     }
     getDistance(x2, y2) { //x2 and y2 has to be ball
         function clamp(val, min, max) {
@@ -118,9 +122,8 @@ class Game {
         clearInterval(coinGenerator);
     }
     swapInstructionsToCanvas() {
-        let instructions = document.getElementById('opening-screen');
         instructions.remove();
-        canvas.id = "canvas"
+        canvas.id = "canvas";
         canvas.width = 700;
         canvas.height = 500;
         body.appendChild(canvas);
@@ -131,11 +134,11 @@ class Game {
         gameOverParent.id = "game-over-screen";
         let h1Tag = document.createElement('h1');
         h1Tag.innerHTML = 'Game Over';
-        let button = document.createElement('button');
-        button.innerHTML = 'Play again';
+        let pTag = document.createElement('p');
+        pTag.innerHTML = `Your final score: ${ball.score}`;
         body.appendChild(gameOverParent);
         gameOverParent.appendChild(h1Tag);
-        gameOverParent.appendChild(button);
+        gameOverParent.appendChild(pTag);
     }
 }
 
@@ -163,6 +166,9 @@ class Coin {
         if(game.getDistance(this.x, this.y) < this.width) {
             this.takeEffect();
         }
+        coinsArr = coinsArr.filter((coin) => {
+            return coin.y < canvas.height;
+        })
     }
     takeEffect() {
         switch(this.image) {

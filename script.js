@@ -12,6 +12,8 @@ let body = document.querySelector('body');
 
 let startButton = document.querySelector(".start-game");
 
+let instructions = document.getElementById('opening-screen');
+
 let coin1 = new Image();
 coin1.src = "./images/Element1.png"
 
@@ -47,4 +49,3 @@ startButton.addEventListener('click', event => {
         game.updateCanvas();
     }, 1000);
 })
-
