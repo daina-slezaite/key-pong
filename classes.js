@@ -102,7 +102,7 @@ class Game {
         this.ctx.font = '20px Arial';
         this.ctx.fillText(`Score: ${ball.score}`, 15, 30);
     }
-    getDistance(x2, y2) { //x2 and y2 has to be ball
+    getDistance(x2, y2) {
         function clamp(val, min, max) {
             return Math.max(min, Math.min(max, val));
         }
@@ -208,6 +208,18 @@ class Coin {
                 setTimeout(() => {
                     ball.radius = 7;
                 }, 4000);
+                break;
+            case coin5:
+                gMajor.volume = "0.5"
+                gMajor.play();
+                break;
+            case coin6:
+                aMajor.volume = "0.5"
+                aMajor.play();
+                break;
+            case coin7:
+                bMajor.volume = "0.5"
+                bMajor.play();
                 break;
         }
     }

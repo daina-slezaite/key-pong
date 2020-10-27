@@ -56,6 +56,12 @@ fMajor.src = "./sounds/F-major.wav"
 let gMajor = new Audio();
 gMajor.src = "./sounds/G-major.wav"
 
+let aMajor = new Audio();
+aMajor.src = "./sounds/A-major.wav"
+
+let bMajor = new Audio();
+bMajor = "./sounds/B-major.wav"
+
 document.addEventListener('keydown', e => {
     switch (e.keyCode) {
         case 37:
