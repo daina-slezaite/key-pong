@@ -8,7 +8,7 @@ class Bar {
     }
     draw() {
         game.ctx.beginPath();
-        game.ctx.fillStyle = 'black';
+        game.ctx.fillStyle = '#E6137C';
         game.ctx.fillRect(this.x, this.y, this.width, this.height);
         game.ctx.closePath();
     }
@@ -40,7 +40,7 @@ class Ball {
     draw() {
         game.ctx.beginPath();
         game.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        game.ctx.fillStyle = 'red';
+        game.ctx.fillStyle = '#8C52FF';
         game.ctx.fill();
         game.ctx.closePath();
     }
@@ -53,6 +53,8 @@ class Ball {
             this.xDirection = this.xDirection/-1;
         }
         if (game.getDistance(this.x, this.y) < (this.radius*2)) {
+            bounce.volume = "0.2";
+            bounce.play();
             this.yDirection = this.yDirection/-1;
             this.score++;
         }
@@ -133,12 +135,15 @@ class Game {
         let gameOverParent = document.createElement('div');
         gameOverParent.id = "game-over-screen";
         let h1Tag = document.createElement('h1');
-        h1Tag.innerHTML = 'Game Over';
+        h1Tag.innerHTML = "Oh no! So many keys to learn, so little time...";
         let pTag = document.createElement('p');
-        pTag.innerHTML = `Your final score: ${ball.score}`;
+        pTag.innerHTML = `Your final score: ${ball.score}.`;
+        let secondPTag = document.createElement('p');
+        secondPTag.innerHTML = 'Keep playing and you will get better!'
         body.appendChild(gameOverParent);
         gameOverParent.appendChild(h1Tag);
         gameOverParent.appendChild(pTag);
+        gameOverParent.appendChild(secondPTag);
     }
 }
 
@@ -173,24 +178,32 @@ class Coin {
     takeEffect() {
         switch(this.image) {
             case coin1:
+                cMajor.volume = "0.5"
+                cMajor.play();
                 bar.width = 150; 
                 setTimeout(() => {
                     bar.width = 100;
                 }, 4000);
                 break;
             case coin2:
+                dMajor.volume = "0.5"
+                dMajor.play();
                 bar.width = 50; 
                 setTimeout(() => {
                     bar.width = 100;
                 }, 4000);
                 break;
             case coin3:
+                eMajor.volume = "0.5"
+                eMajor.play();
                 ball.radius = 3.5;
                 setTimeout(() => {
                     ball.radius = 7;
                 }, 4000);
                 break;
             case coin4:
+                fMajor.volume = "0.5"
+                fMajor.play();
                 ball.radius = 10;
                 setTimeout(() => {
                     ball.radius = 7;
