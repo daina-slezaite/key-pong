@@ -6,6 +6,10 @@ canvas {
     background-image: url("./images/canvas-background.png");
 }
 
+.night {
+    background-image: url("./images/canvas-background-night.png");
+}
+
 #opening-screen {
     display: flex;
     flex-direction: column;

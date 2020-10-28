@@ -4,6 +4,7 @@ class Bar {
         this.y = 480;
         this.width = 100;
         this.height = 20;
+        this.step = 20;
         this.draw();
     }
     draw() {
@@ -14,12 +15,12 @@ class Bar {
     }
     moveRight() {
         if(this.x < canvas.width - bar.width) {
-            this.x += 20;
+            this.x += this.step;
         }
     }
     moveLeft() {
         if(this.x > 0) {
-            this.x -= 20;
+            this.x -= this.step;
         }
     }
 }
@@ -32,6 +33,7 @@ class Ball {
         this.xDirection = 3;
         this.yDirection = 3;
         this.score = 0;
+        this.speed = 1;
         this.draw();
     }
     getRandomStartingPoint(min, max) {
@@ -45,8 +47,8 @@ class Ball {
         game.ctx.closePath();
     }
     move() {
-        this.x += this.xDirection;
-        this.y += this.yDirection;
+        this.x += this.xDirection * this.speed;
+        this.y += this.yDirection * this.speed;
         game.ctx.clearRect(0, 0, canvas.width, canvas.height);
         this.draw();
         if(this.x + this.xDirection > canvas.width - this.radius || this.x + this.xDirection < this.radius) {
@@ -64,9 +66,11 @@ class Ball {
         if(this.y + this.yDirection > canvas.height) {
             this.stop();
             game.stopCoinGenerator();
+            bounce.pause();
+            game.ctx.clearRect(0, 0, canvas.width, canvas.height);
             setTimeout(() => {
                 game.gameOver();
-            }, 300);
+            }, 200);
         }
     }
     stop() {
@@ -98,7 +102,7 @@ class Game {
         this.startCoinGenerator();
     }
     showScore() {
-        this.ctx.fillStyle = 'black';
+        this.ctx.fillStyle = 'white';
         this.ctx.font = '20px Arial';
         this.ctx.fillText(`Score: ${ball.score}`, 15, 30);
     }
@@ -212,14 +216,26 @@ class Coin {
             case coin5:
                 gMajor.volume = "0.5"
                 gMajor.play();
+                ball.speed = 1.4;
+                setTimeout(() => {
+                    ball.speed = 1;
+                }, 3000);
                 break;
             case coin6:
                 aMajor.volume = "0.5"
                 aMajor.play();
+                canvas.classList.add("night");
+                setTimeout(() => {
+                    canvas.classList.remove("night");
+                }, 9000);
                 break;
             case coin7:
                 bMajor.volume = "0.5"
                 bMajor.play();
+                bar.step = 40;
+                setTimeout(() => {
+                    bar.step = 20;
+                }, 4000);
                 break;
         }
     }
