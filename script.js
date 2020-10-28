@@ -63,7 +63,7 @@ let aMajor = new Audio();
 aMajor.src = "./sounds/A-major.wav"
 
 let bMajor = new Audio();
-bMajor = "./sounds/B-major.wav"
+bMajor.src = "./sounds/B-major.wav"
 
 document.addEventListener('keydown', e => {
     switch (e.keyCode) {

@@ -141,13 +141,13 @@ class Game {
         gameOverParent.id = "game-over-screen";
         let h1Tag = document.createElement('h1');
         h1Tag.innerHTML = "Oh no! So many keys to learn, so little time...";
-        let pTag = document.createElement('p');
-        pTag.innerHTML = `Your final score: ${ball.score}.`;
+        let h2Tag = document.createElement('h2');
+        h2Tag.innerHTML = `Your final score: ${ball.score}.`;
         let secondPTag = document.createElement('p');
         secondPTag.innerHTML = 'Keep playing and you will get better!'
         body.appendChild(gameOverParent);
         gameOverParent.appendChild(h1Tag);
-        gameOverParent.appendChild(pTag);
+        gameOverParent.appendChild(h2Tag);
         gameOverParent.appendChild(secondPTag);
     }
 }

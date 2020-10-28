@@ -1,3 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap');
+
+body {
+    font-family: 'Lato', sans-serif;
+    text-align: center;
+    background-image: url("./images/background.svg");
+    background-position: 0 0; 
+    background-repeat: no-repeat;
+}
+
 canvas {
     border: 1px solid black;
     margin-left: auto;
@@ -14,10 +24,31 @@ canvas {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 #game-over-screen {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.start-game {
+    background-color: #E6137C;
+    border: 1px solid #2E2F53;
+    border-radius: 12px;
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+    font-size: 28px;
+    margin-top: 20px;
+}
+
+.start-game:hover {
+    background-color: #CB116D;
+}
+
+h1 {
+    font-size: 48px;
+    color: #E6137C;
 }
