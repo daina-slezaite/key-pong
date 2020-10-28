@@ -41,6 +41,12 @@ let coinsArr = [];
 let bounce = new Audio();
 bounce.src = "./sounds/bounce.mp3"
 
+let drop = new Audio();
+drop.src = "./sounds/drop.mp3"
+
+let music = new Audio();
+music.src = "./sounds/background-music.mp3"
+
 let cMajor = new Audio();
 cMajor.src = "./sounds/C-major.wav"
 
@@ -69,6 +75,8 @@ document.addEventListener('keydown', e => {
 
 startButton.addEventListener('click', event => {
     game.swapInstructionsToCanvas();
+    // music.volume = "0.05";
+    // music.play();
     ball = new Ball();
     bar = new Bar();
     game.startGame();
