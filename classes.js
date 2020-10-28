@@ -64,6 +64,7 @@ class Ball {
             this.yDirection = this.yDirection/-1; 
         }
         if(this.y + this.yDirection > canvas.height) {
+            drop.play();
             this.stop();
             game.stopCoinGenerator();
             bounce.pause();

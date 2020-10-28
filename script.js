@@ -41,6 +41,9 @@ let coinsArr = [];
 let bounce = new Audio();
 bounce.src = "./sounds/bounce.mp3"
 
+let drop = new Audio();
+drop.src = "./sounds/drop.mp3"
+
 let cMajor = new Audio();
 cMajor.src = "./sounds/C-major.wav"
 
