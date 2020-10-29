@@ -65,13 +65,14 @@ class Ball {
         }
         if(this.y + this.yDirection > canvas.height) {
             drop.play();
-            this.stop();
-            game.stopCoinGenerator();
-            bounce.pause();
-            game.ctx.clearRect(0, 0, canvas.width, canvas.height);
+            game.gameOver();
             setTimeout(() => {
-                game.gameOver();
+                game.removeCanvas();
             }, 200);
+            setTimeout(() => {
+                game.ctx.clearRect(0, 0, canvas.width, canvas.height);
+                clearInterval(canvasUpdate);
+            }, 300);
         }
     }
     stop() {
@@ -85,7 +86,7 @@ class Game {
         this.ctx = canvas.getContext('2d');
     }
     updateCanvas() {
-        setInterval(() => {
+        canvasUpdate = setInterval(() => {
             ball.draw();
             ball.move();
             bar.draw();
@@ -101,6 +102,7 @@ class Game {
         ball.draw();
         bar.draw();
         this.startCoinGenerator();
+        coinsArr = [];
     }
     showScore() {
         this.ctx.fillStyle = 'white';
@@ -135,7 +137,11 @@ class Game {
         canvas.height = 500;
         body.appendChild(canvas);
     }
-    gameOver() {
+    swapGameOverToInstructions() {
+        document.getElementById("game-over-screen").remove();
+        body.appendChild(instructions);
+    }
+    removeCanvas() {
         canvas.remove();
         let gameOverParent = document.createElement('div');
         gameOverParent.id = "game-over-screen";
@@ -144,11 +150,33 @@ class Game {
         let h2Tag = document.createElement('h2');
         h2Tag.innerHTML = `Your final score: ${ball.score}.`;
         let secondPTag = document.createElement('p');
-        secondPTag.innerHTML = 'Keep playing and you will get better!'
+        secondPTag.innerHTML = 'Keep playing and you will get better!';
+        let playAgainButton = document.createElement('button');
+        playAgainButton.innerHTML = 'Play again';
+        playAgainButton.classList.add('restart');
         body.appendChild(gameOverParent);
         gameOverParent.appendChild(h1Tag);
         gameOverParent.appendChild(h2Tag);
         gameOverParent.appendChild(secondPTag);
+        gameOverParent.appendChild(playAgainButton);
+
+        let playAgain = document.getElementsByClassName('restart')[0];
+
+        playAgain.addEventListener('click', event => {
+            this.swapGameOverToInstructions();
+        })
+    }
+    gameOver() {
+        ball.stop();
+        this.stopCoinGenerator();
+        bounce.pause();
+        cMajor.pause();
+        dMajor.pause();
+        eMajor.pause();
+        fMajor.pause();
+        gMajor.pause();
+        aMajor.pause();
+        bMajor.pause();
     }
 }
 

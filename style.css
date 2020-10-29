@@ -44,7 +44,22 @@ canvas {
     margin-top: 20px;
 }
 
+.restart {
+    background-color: #E6137C;
+    border: 1px solid #2E2F53;
+    border-radius: 12px;
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+    font-size: 28px;
+    margin-top: 20px;
+}
+
 .start-game:hover {
+    background-color: #CB116D;
+}
+
+.restart:hover {
     background-color: #CB116D;
 }
 

@@ -4,6 +4,8 @@ let ball;
 
 let canvas = document.createElement("canvas");
 
+let canvasUpdate;
+
 let coinGenerator;
 
 let game = new Game();
@@ -36,7 +38,7 @@ let coin7 = new Image();
 coin7.src = "./images/piano-h.svg"
 
 let templateCoins = [coin1, coin2, coin3, coin4, coin5, coin6, coin7];
-let coinsArr = [];
+let coinsArr;
 
 let bounce = new Audio();
 bounce.src = "./sounds/bounce.mp3"
