@@ -123,9 +123,10 @@ class Game {
         return (Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
     }
     startCoinGenerator() {
+        this.ctx.globalCompositeOperation='destination-over';
         coinGenerator = setInterval(() => {
             coinsArr.push(new Coin());
-        }, 5000);
+        }, 4000);
     }
     stopCoinGenerator() {
         clearInterval(coinGenerator);
