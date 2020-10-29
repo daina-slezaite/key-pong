@@ -4,8 +4,8 @@ body {
     font-family: 'Lato', sans-serif;
     text-align: center;
     background-image: url("./images/background.svg");
-    background-position: 0 0; 
     background-repeat: no-repeat;
+    background-size: cover;
 }
 
 canvas {
