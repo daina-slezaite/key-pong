@@ -4,6 +4,8 @@ let ball;
 
 let canvas = document.createElement("canvas");
 
+let canvasUpdate;
+
 let coinGenerator;
 
 let game = new Game();
@@ -36,7 +38,7 @@ let coin7 = new Image();
 coin7.src = "./images/piano-h.svg"
 
 let templateCoins = [coin1, coin2, coin3, coin4, coin5, coin6, coin7];
-let coinsArr = [];
+let coinsArr;
 
 let bounce = new Audio();
 bounce.src = "./sounds/bounce.mp3"
@@ -44,9 +46,12 @@ bounce.src = "./sounds/bounce.mp3"
 let drop = new Audio();
 drop.src = "./sounds/drop.mp3"
 
+<<<<<<< HEAD
 let music = new Audio();
 music.src = "./sounds/background-music.mp3"
 
+=======
+>>>>>>> gh-pages
 let cMajor = new Audio();
 cMajor.src = "./sounds/C-major.wav"
 
@@ -61,6 +66,12 @@ fMajor.src = "./sounds/F-major.wav"
 
 let gMajor = new Audio();
 gMajor.src = "./sounds/G-major.wav"
+
+let aMajor = new Audio();
+aMajor.src = "./sounds/A-major.wav"
+
+let bMajor = new Audio();
+bMajor.src = "./sounds/B-major.wav"
 
 document.addEventListener('keydown', e => {
     switch (e.keyCode) {

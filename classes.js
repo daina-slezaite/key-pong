@@ -4,6 +4,7 @@ class Bar {
         this.y = 480;
         this.width = 100;
         this.height = 20;
+        this.step = 20;
         this.draw();
     }
     draw() {
@@ -14,12 +15,12 @@ class Bar {
     }
     moveRight() {
         if(this.x < canvas.width - bar.width) {
-            this.x += 20;
+            this.x += this.step;
         }
     }
     moveLeft() {
         if(this.x > 0) {
-            this.x -= 20;
+            this.x -= this.step;
         }
     }
 }
@@ -32,6 +33,7 @@ class Ball {
         this.xDirection = 3;
         this.yDirection = 3;
         this.score = 0;
+        this.speed = 1;
         this.draw();
     }
     getRandomStartingPoint(min, max) {
@@ -45,8 +47,8 @@ class Ball {
         game.ctx.closePath();
     }
     move() {
-        this.x += this.xDirection;
-        this.y += this.yDirection;
+        this.x += this.xDirection * this.speed;
+        this.y += this.yDirection * this.speed;
         game.ctx.clearRect(0, 0, canvas.width, canvas.height);
         this.draw();
         if(this.x + this.xDirection > canvas.width - this.radius || this.x + this.xDirection < this.radius) {
@@ -62,12 +64,21 @@ class Ball {
             this.yDirection = this.yDirection/-1; 
         }
         if(this.y + this.yDirection > canvas.height) {
+<<<<<<< HEAD
             drop.volume = "0.5";
             drop.play();
             this.stop();
             game.stopCoinGenerator();
+=======
+            drop.play();
+            game.gameOver();
+>>>>>>> gh-pages
             setTimeout(() => {
-                game.gameOver();
+                game.removeCanvas();
+            }, 200);
+            setTimeout(() => {
+                game.ctx.clearRect(0, 0, canvas.width, canvas.height);
+                clearInterval(canvasUpdate);
             }, 300);
         }
     }
@@ -82,7 +93,7 @@ class Game {
         this.ctx = canvas.getContext('2d');
     }
     updateCanvas() {
-        setInterval(() => {
+        canvasUpdate = setInterval(() => {
             ball.draw();
             ball.move();
             bar.draw();
@@ -98,13 +109,14 @@ class Game {
         ball.draw();
         bar.draw();
         this.startCoinGenerator();
+        coinsArr = [];
     }
     showScore() {
-        this.ctx.fillStyle = 'black';
+        this.ctx.fillStyle = 'white';
         this.ctx.font = '20px Arial';
         this.ctx.fillText(`Score: ${ball.score}`, 15, 30);
     }
-    getDistance(x2, y2) { //x2 and y2 has to be ball
+    getDistance(x2, y2) {
         function clamp(val, min, max) {
             return Math.max(min, Math.min(max, val));
         }
@@ -132,20 +144,46 @@ class Game {
         canvas.height = 500;
         body.appendChild(canvas);
     }
-    gameOver() {
+    swapGameOverToInstructions() {
+        document.getElementById("game-over-screen").remove();
+        body.appendChild(instructions);
+    }
+    removeCanvas() {
         canvas.remove();
         let gameOverParent = document.createElement('div');
         gameOverParent.id = "game-over-screen";
         let h1Tag = document.createElement('h1');
         h1Tag.innerHTML = "Oh no! So many keys to learn, so little time...";
-        let pTag = document.createElement('p');
-        pTag.innerHTML = `Your final score: ${ball.score}.`;
+        let h2Tag = document.createElement('h2');
+        h2Tag.innerHTML = `Your final score: ${ball.score}.`;
         let secondPTag = document.createElement('p');
-        secondPTag.innerHTML = 'Keep playing and you will get better!'
+        secondPTag.innerHTML = 'Keep playing and you will get better!';
+        let playAgainButton = document.createElement('button');
+        playAgainButton.innerHTML = 'Play again';
+        playAgainButton.classList.add('restart');
         body.appendChild(gameOverParent);
         gameOverParent.appendChild(h1Tag);
-        gameOverParent.appendChild(pTag);
+        gameOverParent.appendChild(h2Tag);
         gameOverParent.appendChild(secondPTag);
+        gameOverParent.appendChild(playAgainButton);
+
+        let playAgain = document.getElementsByClassName('restart')[0];
+
+        playAgain.addEventListener('click', event => {
+            this.swapGameOverToInstructions();
+        })
+    }
+    gameOver() {
+        ball.stop();
+        this.stopCoinGenerator();
+        bounce.pause();
+        cMajor.pause();
+        dMajor.pause();
+        eMajor.pause();
+        fMajor.pause();
+        gMajor.pause();
+        aMajor.pause();
+        bMajor.pause();
     }
 }
 
@@ -209,6 +247,30 @@ class Coin {
                 ball.radius = 10;
                 setTimeout(() => {
                     ball.radius = 7;
+                }, 4000);
+                break;
+            case coin5:
+                gMajor.volume = "0.5"
+                gMajor.play();
+                ball.speed = 1.4;
+                setTimeout(() => {
+                    ball.speed = 1;
+                }, 3000);
+                break;
+            case coin6:
+                aMajor.volume = "0.5"
+                aMajor.play();
+                canvas.classList.add("night");
+                setTimeout(() => {
+                    canvas.classList.remove("night");
+                }, 9000);
+                break;
+            case coin7:
+                bMajor.volume = "0.5"
+                bMajor.play();
+                bar.step = 40;
+                setTimeout(() => {
+                    bar.step = 20;
                 }, 4000);
                 break;
         }
