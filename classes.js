@@ -64,15 +64,10 @@ class Ball {
             this.yDirection = this.yDirection/-1; 
         }
         if(this.y + this.yDirection > canvas.height) {
-<<<<<<< HEAD
             drop.volume = "0.5";
             drop.play();
             this.stop();
             game.stopCoinGenerator();
-=======
-            drop.play();
-            game.gameOver();
->>>>>>> gh-pages
             setTimeout(() => {
                 game.removeCanvas();
             }, 200);

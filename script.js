@@ -46,12 +46,6 @@ bounce.src = "./sounds/bounce.mp3"
 let drop = new Audio();
 drop.src = "./sounds/drop.mp3"
 
-<<<<<<< HEAD
-let music = new Audio();
-music.src = "./sounds/background-music.mp3"
-
-=======
->>>>>>> gh-pages
 let cMajor = new Audio();
 cMajor.src = "./sounds/C-major.wav"
 
