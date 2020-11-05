@@ -61,9 +61,10 @@ class Ball {
             this.score++;
         }
         if(this.y + this.yDirection < this.radius) {
-            this.yDirection = this.yDirection/-1; 
+            this.yDirection = this.yDirection/-1;
         }
         if(this.y + this.yDirection > canvas.height) {
+            drop.volume = "0.2";
             drop.play();
             game.gameOver();
             setTimeout(() => {
