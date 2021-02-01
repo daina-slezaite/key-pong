@@ -1,19 +1,11 @@
 let bar;
-
 let ball;
-
 let canvas = document.createElement("canvas");
-
 let canvasUpdate;
-
 let coinGenerator;
-
 let game = new Game();
-
 let body = document.querySelector('body');
-
 let startButton = document.querySelector(".start-game");
-
 let instructions = document.getElementById('opening-screen');
 
 let coin1 = new Image();
