@@ -12,6 +12,12 @@ The objective of the game is to not let the ball fall down, always catching it w
 
 
 # Access
-To initialise in dev mode, run `open index.html`
+To initialise, run the following command in your terminal:
 
-Deployed version: https://daina-slezaite.github.io/key-pong/
+```
+$ open index.html
+```
+
+For deployed version, go here:
+
+https://daina-slezaite.github.io/key-pong/
